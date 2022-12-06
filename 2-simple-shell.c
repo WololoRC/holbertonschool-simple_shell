@@ -1,8 +1,14 @@
 #include "header.h"
+/**
+ * main - Entry point
+ *
+ *
+ * Return: Always 0.
+ */
 int main(void)
 {
 	size_t n = 10;
-	char *buff = NULL; 
+	char *buff = NULL;
 	char **arg = NULL;
 	int ch = 0;
 	pid_t child_p;
@@ -14,7 +20,7 @@ int main(void)
 
 		buff = malloc(sizeof(char) * n);
 
-		ch = getline(&buff, &n, stdin);
+		ch = getline(&buff, &n, stdin); /* @ch: checks getline return for EOF */
 
 		arg = get_arg(buff);
 

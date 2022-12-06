@@ -1,9 +1,16 @@
-#include "header.h" 
+#include "header.h"
+/**
+ *_getenv - get value from a enviroment variable
+ *
+ *@name: string with VAR name
+ *
+ * Return: on success a duplicate from the VAR value, NULL if fails.
+ */
 char *_getenv(const char *name)
 {
 	int cnt, cnt2;
 	int status;
-	
+
 	for (cnt = 0; environ[cnt]; cnt++)
 	{
 		status = 1;
@@ -16,16 +23,23 @@ char *_getenv(const char *name)
 			}
 		}
 
-		if(status == 1)
+		if (status == 1)
 			return (_strdup(&environ[cnt][cnt2 + 1]));
 	}
 
 	return (NULL);
 }
+/**
+ *addPath_node - add a node ona path_list list
+ *
+ *@head: ptr to head node
+ *@data: data
+ * Return: @new node on success, NULL if fails.
+ */
 path_list *addPath_node(path_list **head, const char *data)
 {
 	path_list *new, *last;
-	char *aux = NULL;
+
 	new = malloc(sizeof(path_list));
 	if (!new)
 		return (NULL);
@@ -40,9 +54,9 @@ path_list *addPath_node(path_list **head, const char *data)
 	}
 
 	else
-	{	
+	{
 		last = *head;
-		
+
 		while (last->next != NULL)
 		{
 			last = last->next;
@@ -53,9 +67,15 @@ path_list *addPath_node(path_list **head, const char *data)
 		return (new);
 	}
 }
+/**
+ *get_path - initalizes a path_list list
+ *
+ *
+ * Return: @head ptr.
+ */
 path_list *get_path(void)
 {
-	char *path, **aux;
+	char *path, **aux = NULL;
 	path_list *head = NULL;
 	int cnt = 0, cnt2 = 0;
 
@@ -66,7 +86,7 @@ path_list *get_path(void)
 		cnt2++;
 	}
 
-	aux = malloc(sizeof(path) * cnt2);
+	aux = malloc(sizeof(path) * (cnt2));
 
 	aux[cnt] = strtok(path, ":");
 
@@ -74,7 +94,7 @@ path_list *get_path(void)
 	{
 		addPath_node(&head, aux[cnt]);
 		cnt++;
-		aux[cnt] = strtok(NULL, ":");	
+		aux[cnt] = strtok(NULL, ":");
 	}
 
 	free(aux);
@@ -82,6 +102,12 @@ path_list *get_path(void)
 
 	return (head);
 }
+/**
+ *free_path - free's a path_node list
+ *
+ *@head: @head ptr
+ * Return: nothing.
+ */
 void free_path(path_list *head)
 {
 	path_list *crt_node = NULL;

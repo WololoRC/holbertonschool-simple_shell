@@ -1,0 +1,33 @@
+.\" Manpage for shell.
+.TH shell             Linux programmer's manual        shell
+.SH NAME
+shell \- command basic shell.
+.SH SYNOPSIS
+hsh
+
+.SH DESCRIPTION
+this shell is a basic prototype of the standard command interpreter for the system. this is a project made by Holberton School.
+.SH OPTIONS
+.SS Overview
+This simple shell read line from the STDIN_FILENO, parse it and search if any alias matches the command,then check on the PATH.
+If no command is found, it will print an error message.
+.SH INVOCATION
+.PP
+Compile the Simple Shell using gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+.PP
+Simple Shell can be run in two modes, Interactive and Non\-Interactive.
+.SS Builtins
+This section lists the builtin commands which are builtin because they need to perform some operation that can't be performed by a separate process.
+.TP
+.I exit
+Exits the shell
+.SS Environment
+PATH' The default search path for executables.
+
+PWD' The value of the current working directory.
+
+OLDPWD' The previous value of the current working directory.
+.SH BUGS
+Not known.
+.SH AUTHOR
+Juan Ignacio Valle & Joaquin Jones.

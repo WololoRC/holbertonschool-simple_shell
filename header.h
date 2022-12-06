@@ -6,14 +6,18 @@
 #include <string.h>
 #include <stdarg.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <signal.h>
 
 extern char **environ;
 
 /**
- *path_linked_list - A list of paths
+ *struct path_list_s - A list of paths
  *
+ *@data: a string where goes path's
+ *@next: next path node ptr.
  */
 typedef struct path_list_s
 {
@@ -25,12 +29,11 @@ typedef struct path_list_s
 
 char *_getenv(const char *name);
 path_list *addPath_node(path_list **head, const char *data);
-void print_pathList(const path_list *head);
 char *_strdup(const char *str);
 char **get_arg(char *str);
 path_list *get_path(void);
-int _strcmp(char *s1, char *s2);
 void free_path(path_list *head);
 int _strlen(char *str);
+char *str_concat(char *s1, char *s2);
 
 #endif
