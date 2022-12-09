@@ -7,37 +7,36 @@
  */
 int main(void)
 {
-	size_t n = 10;
+	size_t n = 0;
 	char *buff = NULL;
 	char **arg = NULL;
-	int ch = 0;
-	pid_t child_p;
+	int cnt = 0;
 	int status;
 
-	while (ch != -1)
+	arg = malloc(sizeof(char *) * 40);
+	while (1)
 	{
-		printf("$ ");
-
-		buff = malloc(sizeof(char) * n);
-
-		ch = getline(&buff, &n, stdin); /* @ch: checks getline return for EOF */
-
-		arg = get_arg(buff);
-
-		child_p = fork();
-
-		if (child_p == 0)
+		cnt = 0;
+		if (isatty(STDIN_FILENO) == 1)
+			printf("$ ");
+		if (getline(&buff, &n, stdin) == -1)
 		{
-			execve(arg[0], arg, NULL);
-			free(buff);
-			free(arg);
-			kill(getpid(), SIGINT);
+			printf("\n");
+			break;
 		}
-
-		free(buff);
-		free(arg);
+		if (_strcmp(buff, "exit") == 10)
+			break;
+		arg[cnt] = strtok(buff, " \n\"\"\t");
+		while (arg[cnt])
+		{
+			cnt++;
+			arg[cnt] = strtok(NULL, " \n\"\"\t");
+		}
+		arg = realloc(arg, sizeof(char *) * 40);
+		get_stat(arg);
 		wait(&status);
 	}
-
+	free(arg);
+	free(buff);
 	return (0);
 }
