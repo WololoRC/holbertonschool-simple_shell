@@ -74,11 +74,8 @@ char *str_concat(char *s1, char *s2)
 #include <stdlib.h>
 char *_strdup(const char *str)
 {
-	int cnt, cnt1;
+	int cnt = 0, cnt1 = 0;
 	char *str_dup = NULL;
-
-	cnt = 0;
-	cnt1 = 0;
 
 	if (!str)
 	{
@@ -104,4 +101,22 @@ char *_strdup(const char *str)
 	}
 
 	return (str_dup);
+}
+/**
+ *_strcmp -Compare two strings
+ *
+ *@s1: string
+ *@s2: string
+ *
+ * Return: ret
+ */
+int _strcmp(char *s1, char *s2)
+{
+	while ((*s1 == *s2) && (*s2 != '\0') && (*s1 != '\0'))
+	{
+		s1++;
+		s2++;
+	}
+
+	return (*s1 - *s2);
 }
