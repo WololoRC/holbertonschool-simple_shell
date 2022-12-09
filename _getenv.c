@@ -31,21 +31,29 @@ char *_getenv(const char *name)
 }
 /**
  *addPath_node - add a node ona path_list list
- *
+ *@str: char.
  *@head: ptr to head node
  *@data: data
  * Return: @new node on success, NULL if fails.
  */
-path_list *addPath_node(path_list **head, const char *data)
+path_list *addPath_node(path_list **head, const char *data, char *str)
 {
-	path_list *new, *last;
+	char *aux = NULL, *aux2 = NULL, *aux3 = NULL;
+	path_list *new = NULL, *last = NULL;
 
 	new = malloc(sizeof(path_list));
 	if (!new)
 		return (NULL);
 
-	new->data = _strdup(data);
+	aux = _strdup(data);
+	aux2 = str_concat(aux, "/");
+	aux3 = str_concat(aux2, str);
+
+	new->data = aux3;
 	new->next = NULL;
+
+	free(aux);
+	free(aux2);
 
 	if (!*head)
 	{
@@ -69,13 +77,13 @@ path_list *addPath_node(path_list **head, const char *data)
 }
 /**
  *get_path - initalizes a path_list list
- *
+ *@str: char.
  *
  * Return: @head ptr.
  */
-path_list *get_path(void)
+path_list *get_path(char *str)
 {
-	char *path, **aux = NULL;
+	char *path = NULL, **aux = NULL; /* 8/12 init PATH */
 	path_list *head = NULL;
 	int cnt = 0, cnt2 = 0;
 
@@ -92,7 +100,7 @@ path_list *get_path(void)
 
 	while (aux[cnt])
 	{
-		addPath_node(&head, aux[cnt]);
+		addPath_node(&head, aux[cnt], str);
 		cnt++;
 		aux[cnt] = strtok(NULL, ":");
 	}
@@ -121,3 +129,4 @@ void free_path(path_list *head)
 		free(crt_node);
 	}
 }
+
