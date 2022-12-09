@@ -28,12 +28,16 @@ typedef struct path_list_s
 } path_list;
 
 char *_getenv(const char *name);
-path_list *addPath_node(path_list **head, const char *data);
+path_list *addPath_node(path_list **head, const char *data, char *str);
 char *_strdup(const char *str);
-char **get_arg(char *str);
-path_list *get_path(void);
+int get_stat(char **str);
+path_list *get_path(char *str);
 void free_path(path_list *head);
 int _strlen(char *str);
 char *str_concat(char *s1, char *s2);
+int _strcmp(char *s1, char *s2);
+void free_argv(char **argv);
+void alloc_argv(char **argv);
+char **get_arg(char **argv, char *args);
 
 #endif
