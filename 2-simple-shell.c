@@ -14,19 +14,24 @@ int main(void)
 	int status;
 
 	arg = malloc(sizeof(char *) * 40);
+
 	while (1)
 	{
 		cnt = 0;
+
 		if (isatty(STDIN_FILENO) == 1)
 			printf("$ ");
+
 		if (getline(&buff, &n, stdin) == -1)
 		{
-			printf("\n");
 			break;
 		}
+
 		if (_strcmp(buff, "exit") == 10)
 			break;
+
 		arg[cnt] = strtok(buff, " \n\"\"\t");
+
 		while (arg[cnt])
 		{
 			cnt++;
@@ -38,5 +43,6 @@ int main(void)
 	}
 	free(arg);
 	free(buff);
+
 	return (0);
 }

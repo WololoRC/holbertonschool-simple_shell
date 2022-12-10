@@ -31,29 +31,30 @@ char *_getenv(const char *name)
 }
 /**
  *addPath_node - add a node ona path_list list
- *@str: char.
+ *@str: string coming for main's getline
  *@head: ptr to head node
  *@data: data
  * Return: @new node on success, NULL if fails.
  */
 path_list *addPath_node(path_list **head, const char *data, char *str)
 {
-	char *aux = NULL, *aux2 = NULL, *aux3 = NULL;
+	char **aux = NULL;
 	path_list *new = NULL, *last = NULL;
 
 	new = malloc(sizeof(path_list));
 	if (!new)
 		return (NULL);
 
-	aux = _strdup(data);
-	aux2 = str_concat(aux, "/");
-	aux3 = str_concat(aux2, str);
+	aux = malloc(sizeof(char *) * 8);
 
-	new->data = aux3;
+	aux[0] = _strdup(data);
+	aux[1] = str_concat(aux[0], "/");
+	aux[2] = str_concat(aux[1], str);
+
+	new->data = _strdup(aux[2]);
 	new->next = NULL;
 
-	free(aux);
-	free(aux2);
+	free_argv(aux);
 
 	if (!*head)
 	{
@@ -77,13 +78,13 @@ path_list *addPath_node(path_list **head, const char *data, char *str)
 }
 /**
  *get_path - initalizes a path_list list
- *@str: char.
  *
+ *@str: string coming for main's getline
  * Return: @head ptr.
  */
 path_list *get_path(char *str)
 {
-	char *path = NULL, **aux = NULL; /* 8/12 init PATH */
+	char *path = NULL, **data = NULL;
 	path_list *head = NULL;
 	int cnt = 0, cnt2 = 0;
 
@@ -94,18 +95,18 @@ path_list *get_path(char *str)
 		cnt2++;
 	}
 
-	aux = malloc(sizeof(path) * (cnt2));
+	data = malloc(sizeof(char *) * 40);
 
-	aux[cnt] = strtok(path, ":");
+	data[cnt] = strtok(path, ":");
 
-	while (aux[cnt])
+	while (data[cnt])
 	{
-		addPath_node(&head, aux[cnt], str);
+		addPath_node(&head, data[cnt], str);
 		cnt++;
-		aux[cnt] = strtok(NULL, ":");
+		data[cnt] = strtok(NULL, ":");
 	}
 
-	free(aux);
+	free(data);
 	free(path);
 
 	return (head);
@@ -127,6 +128,6 @@ void free_path(path_list *head)
 
 		free(crt_node->data);
 		free(crt_node);
+
 	}
 }
-

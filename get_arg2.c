@@ -1,9 +1,9 @@
 #include "header.h"
 /**
- *get_stat - turns the stirng passed by main in arguments for execve
- *@argv: char.
+ *get_stat - check stat and executes
  *
- * Return: @argv(arguments vector).
+ *@argv: arguments given by main..
+ * Return: 0 on succes, -1 if fails..
  */
 int get_stat(char **argv)
 {
@@ -28,7 +28,10 @@ int get_stat(char **argv)
 
 		path = path->next;
 		if (!path)
+		{
 			perror("Error");
+			return (-1);
+		}
 	}
 
 	child_p = fork();
