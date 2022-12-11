@@ -20,8 +20,11 @@ Make a simple shell, this is a project made by Holberton School for students to 
 
 ## Description
 Super-simple-shell executes the basic commands of a classic linux terminal,The way it works is the following: Through the getline() function, it receives an input that is later tokenized and placed in an array called **arg[] that -from the beginning of the program- houses memory for about 40 type pointers. char, from there it is passed as an argument to the get_stat() function. **arg[] is reallocated in each iteration of the main function that runs in a loop, this way we make sure we don't run out of memory for any possible number of arguments.
+
 Once inside get_stat() the function initializes a linked list that contains all the addresses of the $PATH variable, where it is already concatenated with the path that contains each node each argument tokenized in the main function.
+
 Continuing the flow of get_stat(), it is evaluated if the arguments sent are already enough to contain a path or if it is necessary to go to a node of the linked list. If neither arv[0] nor path->data contains a valid value to execute, an error message is printed to the screen.
+
 To finish, the execution syntax (PROCESS) is cloned with fork() and it is evaluated in which process the program is running, if it is the child (child_p == 0), execve is executed. if execve fails, the process is killed with kill(),
 
 At the end, the entire linked list is released.
@@ -49,7 +52,6 @@ It will then display a simple prompt and wait for commands.
 
 `$`
 
-A command will be of the type `$ command`
 This shell can handle two types of commands: builtins and normal program.
 
 ### List of built-ins
