@@ -27,7 +27,7 @@ int main(void)
 			break;
 		}
 
-		if (_strcmp(buff, "exit") == 10)
+		if (_strcmp(buff, "exit") == 10) /* hardcode? maybe you mean hardcore */
 			break;
 
 		arg[cnt] = strtok(buff, " \n\"\"\t");
@@ -37,7 +37,7 @@ int main(void)
 			cnt++;
 			arg[cnt] = strtok(NULL, " \n\"\"\t");
 		}
-		arg = realloc(arg, sizeof(char *) * 40);
+		arg = realloc(arg, sizeof(char *) * 40); /* for scalability reassons */
 		get_stat(arg);
 		wait(&status);
 	}
