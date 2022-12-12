@@ -55,7 +55,7 @@ It will then display a simple prompt and wait for commands.
 This shell can handle two types of commands: builtins and normal program.
 
 ### List of built-ins
-* exit  
+* exit
     Exits the shell.
 ### Command
 Every Program in $PATH It Support ls
