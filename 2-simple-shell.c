@@ -8,15 +8,14 @@
 int main(void)
 {
 	size_t n = 0;
-	char *buff = NULL;
+	char *buff = NULL, *dup = NULL, *tok = NULL;
 	char **arg = NULL;
 	int cnt = 0;
-	int status;
-
-	arg = malloc(sizeof(char *) * 40);
 
 	while (1)
 	{
+		arg = calloc(40, sizeof(char *));
+
 		cnt = 0;
 
 		if (isatty(STDIN_FILENO) == 1)
@@ -30,19 +29,21 @@ int main(void)
 		if (_strcmp(buff, "exit") == 10) /* hardcode? maybe you mean hardcore */
 			break;
 
-		arg[cnt] = strtok(buff, " \n\"\"\t");
+		dup = _strdup(buff);
+		tok = strtok(dup, " \"\"\n\t");
 
-		while (arg[cnt])
+		while (tok)
 		{
+			arg[cnt] = strdup(tok);
+			tok = strtok(NULL, " \"\"\n\t");
 			cnt++;
-			arg[cnt] = strtok(NULL, " \n\"\"\t");
 		}
-		arg = realloc(arg, sizeof(char *) * 40); /* for scalability reassons */
+
 		get_stat(arg);
-		wait(&status);
+		free(dup);
 	}
-	free(arg);
 	free(buff);
+	free_argv(arg);
 
 	return (0);
 }

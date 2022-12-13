@@ -23,7 +23,7 @@ int _strlen(char *str)
  *@s2: string to concateante
  * Return: pointer to str concatenated or NULL
  */
-char *str_concat(char *s1, char *s2)
+char *_strcat(char *s1, char *s2)
 {
 	int cnt, cnt2, cntCat, cntCat2;
 	char *str_cat = NULL;
@@ -47,7 +47,7 @@ char *str_concat(char *s1, char *s2)
 		s2 = "";
 	}
 
-	str_cat = malloc(sizeof(char) * (cnt + cnt2));
+	str_cat = calloc((cnt + cnt2), sizeof(char));
 
 	if (!str_cat)
 	{
@@ -87,7 +87,7 @@ char *_strdup(const char *str)
 		cnt++;
 	}
 
-	str_dup = malloc(sizeof(char) * cnt + 1);
+	str_dup = calloc((cnt + 1), sizeof(char));
 
 	if (!str_dup)
 	{
@@ -119,4 +119,16 @@ int _strcmp(char *s1, char *s2)
 	}
 
 	return (*s1 - *s2);
+}
+void free_argv(char **argv)
+{
+	int cnt = 0;
+
+	while (argv[cnt])
+	{
+		free(argv[cnt]);
+		cnt++;
+	}
+
+	free(argv);
 }

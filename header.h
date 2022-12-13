@@ -39,5 +39,6 @@ int _strcmp(char *s1, char *s2);
 void free_argv(char **argv);
 void alloc_argv(char **argv);
 char **get_arg(char **argv, char *args);
+char *_strcat(char *s1, char *s2);
 
 #endif
