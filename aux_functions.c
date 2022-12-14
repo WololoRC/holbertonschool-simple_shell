@@ -121,10 +121,11 @@ int _strcmp(char *s1, char *s2)
 	return (*s1 - *s2);
 }
 /**
-*free_argv - main
-*@argv: char
-*Return: argv
-*/
+ *free_argv - frees memory alocated nodes of an array
+ *
+ *@argv: array
+ * Return: nothing.
+ */
 void free_argv(char **argv)
 {
 	int cnt = 0;
