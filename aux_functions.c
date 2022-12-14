@@ -17,7 +17,7 @@ int _strlen(char *str)
 	return (cnt);
 }
 /**
- **str_concat -Return concatenated strings allocated in a new space of memory
+ **_strcat -Return concatenated strings allocated in a new space of memory
  *
  *@s1: string to concatenate
  *@s2: string to concateante
@@ -120,6 +120,11 @@ int _strcmp(char *s1, char *s2)
 
 	return (*s1 - *s2);
 }
+/**
+*free_argv - main
+*@argv: char
+*Return: argv
+*/
 void free_argv(char **argv)
 {
 	int cnt = 0;
